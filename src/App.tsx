@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import './App.css';
-import TodoItem from './components/ToDoItem';
+import TodoItem from './components/TodoItem';
 import { kadvice } from 'kadvice';
 import AddIcon from '@mui/icons-material/Add';
 import toast, { Toaster } from 'react-hot-toast';
