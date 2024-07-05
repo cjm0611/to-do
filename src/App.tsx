@@ -3,6 +3,7 @@ import './App.css';
 import TodoItem from './components/ToDoItem';
 import { kadvice } from 'kadvice';
 import AddIcon from '@mui/icons-material/Add';
+import toast, { Toaster } from 'react-hot-toast';
 
 function App() {
   const currentDate: Date = new Date();
@@ -39,10 +40,14 @@ function App() {
 
   const handleAddTodo = () => {
     if (newToDoText.trim() == '') {
+      toast.error('할 일을 입력해주세요.', {
+        position: 'bottom-center',
+        duration: 2000,
+      });
       return;
     }
 
-    const newTodo = { text: DEFAULT_TEXT_IN_TO_DO_ITEM, isCompleted: false };
+    const newTodo = { text: newToDoText, isCompleted: false };
     setTodos([...todos, newTodo]);
     setNewToDoText('');
     setIsShowInputField(false);
@@ -91,11 +96,12 @@ function App() {
                   취소
                 </button>
                 <button
-                  className="w-[75px] h-[25px] ml-[15px] bg-green-700 text-white rounded-[8px]"
+                  className="w-[75px] h-[25px] ml-[15px] bg-green-600 text-white rounded-[8px]"
                   onClick={handleAddTodo}
                 >
                   추가
                 </button>
+                <Toaster />
               </div>
             )}
           </section>
