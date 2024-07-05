@@ -2,13 +2,13 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import { useState } from 'react';
 
-export interface TodoItemProps {
+type TodoItemProps = {
   text: string;
   isCompleted: boolean;
   onToggle: () => void;
   onDelete: () => void;
   onEdit: (text: string) => void;
-}
+};
 
 const TodoItem = ({
   text,
