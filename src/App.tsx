@@ -13,7 +13,9 @@ function App() {
     { text: '구름 코테 가입하기', isCompleted: false },
     { text: 'to-do 앱 완성하기', isCompleted: false },
   ]);
-  const [newToDoText, setNewToDoText] = useState('');
+  const [newToDoText, setNewToDoText] = useState<string>('');
+  const [isShowInputField, setIsShowInputField] = useState<boolean>(false);
+  const DEFAULT_TEXT_IN_TO_DO_ITEM: string = '새로운 할 일';
 
   useEffect(() => {
     const initialAdvice = kadvice.getOne();
@@ -26,12 +28,24 @@ function App() {
     setTodos(newTodos);
   };
 
+  const handleShowInputField = () => {
+    setIsShowInputField(!isShowInputField);
+  };
+
+  const handleCancel = () => {
+    setIsShowInputField(false);
+    setNewToDoText('');
+  };
+
   const handleAddTodo = () => {
-    if (newToDoText.trim() !== '') {
-      const newTodo = { text: newToDoText, isCompleted: false };
-      setTodos([...todos, newTodo]);
-      setNewToDoText('');
+    if (newToDoText.trim() == '') {
+      return;
     }
+
+    const newTodo = { text: DEFAULT_TEXT_IN_TO_DO_ITEM, isCompleted: false };
+    setTodos([...todos, newTodo]);
+    setNewToDoText('');
+    setIsShowInputField(false);
   };
 
   return (
@@ -52,20 +66,40 @@ function App() {
               </li>
             ))}
           </ul>
-          <button className="flex items-center justify-center">
-            <AddIcon style={{ color: '#5C5AD9' }} />
-            <p>할 일 추가</p>
-          </button>
+          <section className="mt-[10px]">
+            {!isShowInputField ? (
+              <button
+                className="flex items-center justify-center"
+                onClick={handleShowInputField}
+              >
+                <AddIcon style={{ color: '#5C5AD9' }} />
+                <p>할 일 추가</p>
+              </button>
+            ) : (
+              <div className="flex items-center">
+                <input
+                  type="text"
+                  className="w-full border-b p-[5px] focus:border-blue-500 outline-none"
+                  placeholder="해야 할 일을 입력하세요."
+                  onChange={(e) => setNewToDoText(e.target.value)}
+                  value={newToDoText}
+                />
+                <button
+                  className="w-[75px] h-[25px] ml-[15px] bg-gray-300 text-black rounded-[8px]"
+                  onClick={handleCancel}
+                >
+                  취소
+                </button>
+                <button
+                  className="w-[75px] h-[25px] ml-[15px] bg-green-700 text-white rounded-[8px]"
+                  onClick={handleAddTodo}
+                >
+                  추가
+                </button>
+              </div>
+            )}
+          </section>
         </main>
-        <section className="mt-[50px] flex items-center">
-          <input
-            type="text"
-            className="w-full border-b focus:border-blue-500 outline-none"
-            placeholder="해야 할 일을 입력하세요."
-            onChange={(e) => setNewToDoText(e.target.value)}
-            value={newToDoText}
-          />
-        </section>
       </div>
     </div>
   );
