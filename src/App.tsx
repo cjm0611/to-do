@@ -24,28 +24,27 @@ function App() {
 
     const storedTodos = localStorage.getItem('todos');
     const initialTodos: TodoType[] = storedTodos ? JSON.parse(storedTodos) : [];
-    setTodos((prevTodos) => [...prevTodos, ...initialTodos]);
+    setTodos(initialTodos);
   }, []);
-
-  useEffect(() => {
-    localStorage.setItem('todos', JSON.stringify(todos));
-  }, [todos]);
 
   const handleToggleItem = (index: number) => {
     const newTodos = [...todos];
     newTodos[index].isCompleted = !newTodos[index].isCompleted;
     setTodos(newTodos);
+    localStorage.setItem('todos', JSON.stringify(newTodos));
   };
 
   const handleDeleteItem = (index: number) => {
-    const updatedTodos = todos.filter((_, idx) => idx !== index);
-    setTodos(updatedTodos);
+    const newTodos = todos.filter((_, idx) => idx !== index);
+    setTodos(newTodos);
+    localStorage.setItem('todos', JSON.stringify(newTodos));
   };
 
   const handleEditItem = (index: number, newText: string) => {
     const newTodos = [...todos];
     newTodos[index].text = newText;
     setTodos(newTodos);
+    localStorage.setItem('todos', JSON.stringify(newTodos));
   };
 
   const handleShowInputField = () => {
@@ -67,7 +66,9 @@ function App() {
     }
 
     const newTodo = { text: newToDoText, isCompleted: false };
-    setTodos([...todos, newTodo]);
+    const newTodos = [...todos, newTodo];
+    setTodos(newTodos);
+    localStorage.setItem('todos', JSON.stringify(newTodos));
     setNewToDoText('');
     setIsShowInputField(false);
   };
