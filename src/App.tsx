@@ -1,20 +1,20 @@
 import { useEffect, useState } from 'react';
 import './App.css';
-import TodoItem from './components/TodoItem';
 import { kadvice } from 'kadvice';
 import AddIcon from '@mui/icons-material/Add';
 import toast, { Toaster } from 'react-hot-toast';
+import TodoList from './components/TodoList';
+
+export type TodoType = {
+  text: string;
+  isCompleted: boolean;
+};
 
 function App() {
-  type ToDoType = {
-    text: string;
-    isCompleted: boolean;
-  };
-
   const currentDate: Date = new Date();
   const [advice, setAdvice] = useState(kadvice.getOne());
   const today: string = `${currentDate.getFullYear()}년 ${currentDate.getMonth() + 1}월 ${currentDate.getDay()}일`;
-  const [todos, setTodos] = useState<ToDoType[]>([]);
+  const [todos, setTodos] = useState<TodoType[]>([]);
   const [newToDoText, setNewToDoText] = useState<string>('');
   const [isShowInputField, setIsShowInputField] = useState<boolean>(false);
 
@@ -23,7 +23,7 @@ function App() {
     setAdvice(initialAdvice);
 
     const storedTodos = localStorage.getItem('todos');
-    const initialTodos: ToDoType[] = storedTodos ? JSON.parse(storedTodos) : [];
+    const initialTodos: TodoType[] = storedTodos ? JSON.parse(storedTodos) : [];
     setTodos((prevTodos) => [...prevTodos, ...initialTodos]);
   }, []);
 
@@ -79,19 +79,12 @@ function App() {
         <p className="text-gray-500 italic mt-[10px]">{`${advice.message} - ${advice.author}`}</p>
         <main className="mt-[30px]">
           <p className="text-xl font-bold mb-[10px]">To Do List ✅</p>
-          <ul>
-            {todos.map((todo, index) => (
-              <li key={index} className="mb-[10px]">
-                <TodoItem
-                  text={todo.text}
-                  isCompleted={todo.isCompleted}
-                  onToggle={() => handleToggleItem(index)}
-                  onDelete={() => handleDeleteItem(index)}
-                  onEdit={(newText) => handleEditItem(index, newText)}
-                />
-              </li>
-            ))}
-          </ul>
+          <TodoList
+            todos={todos}
+            handleToggleItem={handleToggleItem}
+            handleDeleteItem={handleDeleteItem}
+            handleEditItem={handleEditItem}
+          />
           <section className="mt-[10px]">
             {!isShowInputField ? (
               <button
