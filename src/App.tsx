@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import './App.css';
 import { kadvice } from 'kadvice';
-import AddIcon from '@mui/icons-material/Add';
 import toast, { Toaster } from 'react-hot-toast';
 import TodoList from './components/TodoList';
+import TodoInput from './components/TodoInput';
 
 export type TodoType = {
   text: string;
@@ -87,13 +87,7 @@ function App() {
           />
           <section className="mt-[10px]">
             {!isShowInputField ? (
-              <button
-                className="flex items-center justify-center"
-                onClick={handleShowInputField}
-              >
-                <AddIcon style={{ color: '#5C5AD9' }} />
-                <p>할 일 추가</p>
-              </button>
+              <TodoInput handleShowInputField={handleShowInputField} />
             ) : (
               <div className="flex items-center">
                 <input
