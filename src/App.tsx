@@ -74,7 +74,7 @@ function App() {
   };
 
   return (
-    <div className="w-full h-screen bg-gradient-to-b from-cyan-800 to-gray-300 p-[100px] flex items-center justify-center font-pre">
+    <div className="w-full min-h-screen bg-gradient-to-b from-cyan-800 to-gray-300 p-[100px] flex items-center justify-center font-pre">
       <div className="w-[500px] h-full rounded-[20px] p-[50px] bg-white drop-shadow-xl">
         <h1 className="text-3xl text-gray-800 font-semibold">{today}</h1>
         <p className="text-gray-500 italic mt-[10px]">{`${advice.message} - ${advice.author}`}</p>
