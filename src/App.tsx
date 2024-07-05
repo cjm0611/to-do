@@ -6,22 +6,30 @@ import AddIcon from '@mui/icons-material/Add';
 import toast, { Toaster } from 'react-hot-toast';
 
 function App() {
+  type ToDoType = {
+    text: string;
+    isCompleted: boolean;
+  };
+
   const currentDate: Date = new Date();
   const [advice, setAdvice] = useState(kadvice.getOne());
   const today: string = `${currentDate.getFullYear()}년 ${currentDate.getMonth() + 1}월 ${currentDate.getDay()}일`;
-  const [todos, setTodos] = useState([
-    { text: 'React useMemo 공부하기', isCompleted: false },
-    { text: '구름 코테 가입하기', isCompleted: false },
-    { text: 'to-do 앱 완성하기', isCompleted: false },
-  ]);
+  const [todos, setTodos] = useState<ToDoType[]>([]);
   const [newToDoText, setNewToDoText] = useState<string>('');
   const [isShowInputField, setIsShowInputField] = useState<boolean>(false);
-  const DEFAULT_TEXT_IN_TO_DO_ITEM: string = '새로운 할 일';
 
   useEffect(() => {
     const initialAdvice = kadvice.getOne();
     setAdvice(initialAdvice);
+
+    const storedTodos = localStorage.getItem('todos');
+    const initialTodos: ToDoType[] = storedTodos ? JSON.parse(storedTodos) : [];
+    setTodos((prevTodos) => [...prevTodos, ...initialTodos]);
   }, []);
+
+  useEffect(() => {
+    localStorage.setItem('todos', JSON.stringify(todos));
+  }, [todos]);
 
   const handleToggleItem = (index: number) => {
     const newTodos = [...todos];
