@@ -23,9 +23,20 @@ function App() {
     setAdvice(initialAdvice);
   }, []);
 
-  const handleToggle = (index: number) => {
+  const handleToggleItem = (index: number) => {
     const newTodos = [...todos];
     newTodos[index].isCompleted = !newTodos[index].isCompleted;
+    setTodos(newTodos);
+  };
+
+  const handleDeleteItem = (index: number) => {
+    const updatedTodos = todos.filter((_, idx) => idx !== index);
+    setTodos(updatedTodos);
+  };
+
+  const handleEditItem = (index: number, newText: string) => {
+    const newTodos = [...todos];
+    newTodos[index].text = newText;
     setTodos(newTodos);
   };
 
@@ -66,7 +77,9 @@ function App() {
                 <TodoItem
                   text={todo.text}
                   isCompleted={todo.isCompleted}
-                  onToggle={() => handleToggle(index)}
+                  onToggle={() => handleToggleItem(index)}
+                  onDelete={() => handleDeleteItem(index)}
+                  onEdit={(newText) => handleEditItem(index, newText)}
                 />
               </li>
             ))}
