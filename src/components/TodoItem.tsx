@@ -42,7 +42,7 @@ const TodoItem = ({
         <div className="flex items-center justify-center">
           <input
             type="text"
-            className="w-full border-b p-[5px] focus:border-blue-500 outline-none"
+            className="w-full border-b p-[5px] focus:border-blue-500 outline-none bg-transparent"
             placeholder="해야 할 일을 입력하세요."
             value={editedText}
             onChange={(e) => setEditedText(e.target.value)}
@@ -77,13 +77,13 @@ const TodoItem = ({
             className="ml-[5px] flex items-center justify-center"
             onClick={onDelete}
           >
-            <DeleteIcon style={{ width: 20, height: 20, color: '#243E57' }} />
+            <DeleteIcon className="w-[20px] h-[20px] text-[#243E57] dark:text-[#55a0bd]" />
           </button>
           <button
             className="ml-[5px] flex items-center justify-center"
             onClick={handleEditClick}
           >
-            <EditIcon style={{ width: 20, height: 20, color: '#243E57' }} />
+            <EditIcon className="w-[20px] h-[20px] text-[#243E57] dark:text-[#55a0bd]" />
           </button>
         </div>
       )}

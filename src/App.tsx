@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 import { kadvice } from 'kadvice';
 import TodoList from './components/TodoList';
 import TodoInput from './components/TodoInput';
+import { CustomThemeProvider } from './components/CustomThemeProvider';
+import ThemeToggleButton from './components/ThemeToggleButton';
 
 export type TodoType = {
   text: string;
@@ -24,19 +26,24 @@ function App() {
   }, []);
 
   return (
-    <div className="w-full min-h-screen bg-gradient-to-b from-cyan-800 to-gray-300 p-[100px] flex items-center justify-center font-pre">
-      <div className="w-[500px] h-full rounded-[20px] p-[50px] bg-white drop-shadow-xl">
-        <h1 className="text-3xl text-gray-800 font-semibold">{today}</h1>
-        <p className="text-gray-500 italic mt-[10px]">{`${advice.message} - ${advice.author}`}</p>
-        <main className="mt-[30px]">
-          <p className="text-xl font-bold mb-[10px]">To Do List ✅</p>
-          <TodoList todos={todos} setTodos={setTodos} />
-          <section className="mt-[10px]">
-            <TodoInput todos={todos} setTodos={setTodos} />
-          </section>
-        </main>
+    <CustomThemeProvider>
+      <div className="w-full min-h-screen bg-gradient-to-b p-[100px] flex items-center justify-center font-pre from-cyan-800 to-gray-300 dark:from-gray-800 dark:to-cyan-800 dark:text-white">
+        <div className="relative w-[500px] h-full bg-white dark:bg-black rounded-[20px] p-[50px] drop-shadow-xl">
+          <h1 className="text-3xl font-semibold dark:text-white">{today}</h1>
+          <p className="text-gray-500 italic mt-[10px] dark:text-[#C5C8CE]">{`${advice.message} - ${advice.author}`}</p>
+          <main className="mt-[30px]">
+            <p className="text-xl font-bold mb-[10px]">To Do List ✅</p>
+            <TodoList todos={todos} setTodos={setTodos} />
+            <section className="mt-[10px]">
+              <TodoInput todos={todos} setTodos={setTodos} />
+            </section>
+          </main>
+          <div className="absolute bottom-[10px] right-[10px]">
+            <ThemeToggleButton />
+          </div>
+        </div>
       </div>
-    </div>
+    </CustomThemeProvider>
   );
 }
 

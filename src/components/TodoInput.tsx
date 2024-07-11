@@ -45,14 +45,14 @@ const TodoInput = ({ todos, setTodos }: TodoInputProps) => {
           className="flex items-center justify-center"
           onClick={handleShowInputField}
         >
-          <AddIcon style={{ color: '#5C5AD9' }} />
+          <AddIcon className="text-[#5C5AD9] dark:text-[#7A78E0]" />
           <p>할 일 추가</p>
         </button>
       ) : (
         <div className="flex items-center">
           <input
             type="text"
-            className="w-full border-b p-[5px] focus:border-blue-500 outline-none"
+            className="w-full border-b p-[5px] focus:border-blue-500 outline-none bg-transparent"
             placeholder="해야 할 일을 입력하세요."
             onChange={(e) => setNewToDoText(e.target.value)}
             value={newToDoText}
