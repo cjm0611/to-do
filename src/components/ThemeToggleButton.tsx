@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { ThemeContext } from './CustomThemeProvider';
+import { ThemeContext } from '../contexts/CustomThemeProvider';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 import LightModeIcon from '@mui/icons-material/LightMode';
 import { Theme } from '../types/enums';

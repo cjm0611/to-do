@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { kadvice } from 'kadvice';
 import TodoList from './components/TodoList';
 import TodoInput from './components/TodoInput';
-import { CustomThemeProvider } from './components/CustomThemeProvider';
+import { CustomThemeProvider } from './contexts/CustomThemeProvider';
 import ThemeToggleButton from './components/ThemeToggleButton';
 
 export type TodoType = {
