@@ -17,7 +17,7 @@ const TodoList = ({
   return (
     <ul>
       {todos.map((todo, index) => (
-        <li key={index} className="mb-[10px]">
+        <li key={todo.text} className="mb-[10px]">
           <TodoItem
             text={todo.text}
             isCompleted={todo.isCompleted}
