@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import './App.css';
 import { kadvice } from 'kadvice';
 import TodoList from './components/TodoList';
 import TodoInput from './components/TodoInput';
