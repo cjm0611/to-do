@@ -1,19 +1,33 @@
+import { useState } from 'react';
 import { TodoType } from '../App';
 import TodoItem from './TodoItem';
 
 type TodoListProps = {
   todos: TodoType[];
-  handleToggleItem: (index: number) => void;
-  handleDeleteItem: (index: number) => void;
-  handleEditItem: (index: number, text: string) => void;
+  setTodos: (newTodos: TodoType[]) => void;
 };
 
-const TodoList = ({
-  todos,
-  handleToggleItem,
-  handleDeleteItem,
-  handleEditItem,
-}: TodoListProps) => {
+const TodoList = ({ todos, setTodos }: TodoListProps) => {
+  const handleToggleItem = (index: number) => {
+    const newTodos = [...todos];
+    newTodos[index].isCompleted = !newTodos[index].isCompleted;
+    setTodos(newTodos);
+    localStorage.setItem('todos', JSON.stringify(newTodos));
+  };
+
+  const handleDeleteItem = (index: number) => {
+    const newTodos = todos.filter((_, idx) => idx !== index);
+    setTodos(newTodos);
+    localStorage.setItem('todos', JSON.stringify(newTodos));
+  };
+
+  const handleEditItem = (index: number, newText: string) => {
+    const newTodos = [...todos];
+    newTodos[index].text = newText;
+    setTodos(newTodos);
+    localStorage.setItem('todos', JSON.stringify(newTodos));
+  };
+
   return (
     <ul>
       {todos.map((todo, index) => (
