@@ -4,6 +4,7 @@ import TodoList from './components/TodoList';
 import TodoInput from './components/TodoInput';
 import { CustomThemeProvider } from './contexts/CustomThemeProvider';
 import ThemeToggleButton from './components/ThemeToggleButton';
+import useLocalStorage from './hooks/useLocalStorage';
 
 export type TodoType = {
   text: string;
@@ -12,17 +13,13 @@ export type TodoType = {
 
 function App() {
   const [advice, setAdvice] = useState(kadvice.getOne());
-  const [todos, setTodos] = useState<TodoType[]>([]);
+  const [todos, setTodos] = useLocalStorage<TodoType[]>('todos', []);
   const currentDate: Date = new Date();
   const today: string = `${currentDate.getFullYear()}년 ${currentDate.getMonth() + 1}월 ${currentDate.getDay()}일`;
 
   useEffect(() => {
     const initialAdvice = kadvice.getOne();
     setAdvice(initialAdvice);
-
-    const storedTodos = localStorage.getItem('todos');
-    const initialTodos: TodoType[] = storedTodos ? JSON.parse(storedTodos) : [];
-    setTodos(initialTodos);
   }, []);
 
   return (

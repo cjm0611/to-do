@@ -33,7 +33,6 @@ const TodoInput = ({ todos, setTodos }: TodoInputProps) => {
     const newTodo = { text: newToDoText, isCompleted: false };
     const newTodos = [...todos, newTodo];
     setTodos(newTodos);
-    localStorage.setItem('todos', JSON.stringify(newTodos));
     setNewToDoText('');
     setIsShowInputField(false);
   };
